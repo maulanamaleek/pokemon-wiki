@@ -1,9 +1,9 @@
-import Locale from '@/utils/i18n'
-import { ELang } from '@/utils/i18n/types';
-import Image from 'next/image'
+import { Locale } from '@/utils/i18n'
+import { ELang } from '@utils/i18n/types';
+
 
 export default function Home() {
-  Locale.setLanguage(ELang.EN);
+  Locale.setLanguage(ELang.ID);
   const locale = Locale.getLocale();
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">

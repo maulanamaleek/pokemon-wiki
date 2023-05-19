@@ -23,5 +23,4 @@ class I18n {
   }
 }
 
-const Locale = new I18n();
-export default Locale;
+export const Locale = new I18n();

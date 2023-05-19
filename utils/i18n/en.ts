@@ -2,7 +2,11 @@ import { TLocaleObject } from "./types";
 
 const locale: TLocaleObject = {
   HELLO: 'Hello World',
-  SHARE: 'Share your pokemon'
+  NAV_FEED: 'Feeds',
+  NAV_HOME: 'Home',
+  NAV_POKEDEX: 'Pokèdex',
+  SHARE: 'Share your pokemon',
+  SIGN_IN: 'Sign In'
 }
 
 export default locale;
