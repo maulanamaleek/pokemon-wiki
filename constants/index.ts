@@ -1,0 +1,3 @@
+/**
+ * Constants variable used Globally
+ */
