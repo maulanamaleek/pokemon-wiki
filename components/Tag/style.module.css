@@ -1,0 +1,3 @@
+.text {
+  @apply text-xs bg-blue-400 px-2 py-1 rounded-md text-white;
+}

@@ -4,6 +4,7 @@ import { Metadata } from 'next'
 import Navbar from '@/components/Navbar'
 import { Locale } from '@utils/i18n'
 import { ELang } from '@utils/i18n/types'
+import { ApolloWrapper } from '@utils/apollo-wrapper'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -27,10 +28,13 @@ export default function RootLayout({
           <div className="gradient" />
         </div>
 
-        <main className="app">
-          <Navbar />
-          {children}
-        </main>
+        <ApolloWrapper>
+
+          <main className="app">
+            <Navbar />
+            {children}
+          </main>
+        </ApolloWrapper>
       </body>
     </html>
   )

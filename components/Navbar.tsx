@@ -10,7 +10,7 @@ const Navbar = () => {
   const locale = Locale.getLocale();
 
   return (
-    <nav className="fixed sm:left-1/2 sm:-translate-x-1/2 w-full sm:w-2/3 shadow-md z-10 h-14 flex items-center sm:rounded-lg mx-auto sm:mt-10">
+    <nav className="fixed sm:left-1/2 sm:-translate-x-1/2 w-full sm:w-2/3 shadow-md z-10 h-14 flex items-center sm:rounded-lg mx-auto sm:mt-10 bg-white">
       {/* Desktop View */}
       <div className="hidden sm:flex w-full justify-around">
         <Link href="/" className="nav_link selected">
