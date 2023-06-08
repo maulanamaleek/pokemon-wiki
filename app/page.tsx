@@ -146,7 +146,7 @@ export default function Home({
         <div className="grid grid-cols-3 gap-5 flex-wrap mx-auto w-3/4flex-1">
           {pokeListElem}
         </div>
-        <div className="w-64 shadow-lg h-72 rounded-xl relative bg-white">
+        <div className="w-64 shadow-lg h-max rounded-xl relative bg-white">
           <DetailCard detail={detail} />
         </div>
       </div>
