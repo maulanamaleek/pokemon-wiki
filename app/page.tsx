@@ -140,13 +140,13 @@ export default function Home({
 
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
+    <main className="flex min-h-screen flex-col items-center justify-center p-5 md:p-24">
 
-      <div className="flex gap-10 justify-between  mt-20 ">
-        <div className="grid grid-cols-3 gap-5 flex-wrap mx-auto w-3/4flex-1">
+      <div className="flex md:gap-10 justify-between w-full md:w-auto mt-20 ">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-5 flex-wrap mx-auto w-full md:w-3/4 flex-1">
           {pokeListElem}
         </div>
-        <div className="w-64 shadow-lg h-max rounded-xl relative bg-white">
+        <div className="md:w-64 shadow-lg h-max rounded-xl relative bg-white">
           <DetailCard detail={detail} />
         </div>
       </div>

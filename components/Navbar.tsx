@@ -2,18 +2,56 @@
 
 import { Locale } from '@utils/i18n';
 import { ELang } from '@utils/i18n/types';
+import { getProviders, signIn, signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from "next/link";
+import { usePathname} from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 const Navbar = () => {
   // Locale.setLanguage(ELang.ID);
+  const path = usePathname()
+  console.log({path})
+  const { data: session } = useSession();
+  const [providers, setProviders] = useState<any>(null);
   const locale = Locale.getLocale();
+  console.log('SESSION DATA', session)
+
+  useEffect(() => {
+    const setUpProviders = async () => {
+      const response = await getProviders();
+      console.log('providers response', response)
+
+      setProviders(response);
+    };
+
+    setUpProviders();
+  }, []);
+
+  const userInfo = (() => {
+    if (!session) {
+      return <button onClick={() => signIn(providers['google'].id)} className="black_btn">{locale.SIGN_IN}</button>;
+    }
+
+    return (
+      <>
+        <Image
+          className="rounded-full"
+          src={session.user?.image || ''}
+          width={30}
+          height={30}
+          alt={session.user?.email || ''}
+        />
+        <button onClick={() => signOut()}>Sign Out</button>
+      </>
+    )
+  })()
 
   return (
     <nav className="fixed sm:left-1/2 sm:-translate-x-1/2 w-full sm:w-2/3 shadow-md z-10 h-14 flex items-center sm:rounded-lg mx-auto sm:mt-10 bg-white">
       {/* Desktop View */}
       <div className="hidden sm:flex w-full justify-around">
-        <Link href="/" className="nav_link selected">
+        <Link href="/" className={`nav_link ${path === '/' ? 'selected' : ''}`}>
           <Image
             src="/assets/icons/gengar.svg"
             width={23}
@@ -23,7 +61,7 @@ const Navbar = () => {
           />
           <span>{locale.NAV_HOME}</span>
         </Link>
-        <Link href="/" className="nav_link">
+        <Link href="/pokedex" className={`nav_link ${/pokedex/.test(path) ? 'selected' : ''}`}>
           <Image
             src="/assets/icons/pokeball.svg"
             width={23}
@@ -32,7 +70,7 @@ const Navbar = () => {
           />
           <span>{locale.NAV_POKEDEX}</span>
         </Link>
-        <Link href="/" className="nav_link">
+        <Link href="/forum" className={`nav_link ${/forum/.test(path) ? 'selected' : ''}`}>
           <Image
             src="/assets/icons/hat.svg"
             width={23}
@@ -41,7 +79,8 @@ const Navbar = () => {
           />
           <span>{locale.NAV_FEED}</span>
         </Link>
-        <button className="black_btn">{locale.SIGN_IN}</button>
+        {/* <button onClick={() => signIn(providers['google'].id)} className="black_btn">{locale.SIGN_IN}</button> */}
+        {userInfo}
       </div>
 
       {/* Mobile View */}
@@ -53,6 +92,7 @@ const Navbar = () => {
             height={30}
             alt="pokemon wiki"
           />
+          <h2><span className="font-bold text-green-600">Pokemon</span></h2>
         </div>
         <Image
           src="/assets/icons/menu.svg"

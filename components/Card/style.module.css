@@ -1,5 +1,5 @@
 .card {
-  @apply rounded-xl shadow-lg p-4 h-36 w-52 flex flex-col items-center relative cursor-pointer bg-white;
+  @apply rounded-xl shadow-lg p-4 h-36 md:w-52 flex flex-col items-center relative cursor-pointer bg-white w-40 mx-auto;
 }
 
 .card:hover {

@@ -85,7 +85,7 @@ const DetailCard = ({
   )
 
   return (
-    <div className="flex flex-col items-center gap-1 h-auto px-5 pb-8">
+    <div className="flex-col items-center gap-1 h-auto px-5 pb-8 hidden md:flex">
       <Image
         src={image}
         width={120}

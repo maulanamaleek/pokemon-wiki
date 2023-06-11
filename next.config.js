@@ -4,7 +4,8 @@ const nextConfig = {
     // allowed image domains to be used in the code
     domains: [
       'raw.githubusercontent.com',
-      'unpkg.com'
+      'unpkg.com',
+      'lh3.googleusercontent.com'
     ]
   },
   swcMinify: true
