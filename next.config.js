@@ -5,7 +5,8 @@ const nextConfig = {
     domains: [
       'raw.githubusercontent.com',
       'unpkg.com',
-      'lh3.googleusercontent.com'
+      'lh3.googleusercontent.com',
+      'www.jamtangan.com'
     ]
   },
   swcMinify: true

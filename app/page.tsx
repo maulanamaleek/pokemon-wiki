@@ -140,7 +140,7 @@ export default function Home({
 
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-5 md:p-24">
+    <main className="">
 
       <div className="flex md:gap-10 justify-between w-full md:w-auto mt-20 ">
         <div className="grid grid-cols-2 md:grid-cols-3 gap-5 flex-wrap mx-auto w-full md:w-3/4 flex-1">

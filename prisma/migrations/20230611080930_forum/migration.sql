@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Feed" ALTER COLUMN "images" DROP DEFAULT;

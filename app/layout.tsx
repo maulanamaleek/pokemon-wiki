@@ -32,8 +32,8 @@ export default function RootLayout({
 
           <ApolloWrapper>
 
-            <main className="app">
-              <Navbar />
+            <Navbar />
+            <main className="app flex min-h-screen flex-col items-center justify-center p-5 md:p-24">
               {children}
             </main>
           </ApolloWrapper>

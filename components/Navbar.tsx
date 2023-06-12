@@ -5,13 +5,14 @@ import { ELang } from '@utils/i18n/types';
 import { getProviders, signIn, signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from "next/link";
-import { usePathname} from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import Avatar from './Avatar';
 
 const Navbar = () => {
   // Locale.setLanguage(ELang.ID);
   const path = usePathname()
-  console.log({path})
+  console.log({ path })
   const { data: session } = useSession();
   const [providers, setProviders] = useState<any>(null);
   const locale = Locale.getLocale();
@@ -35,12 +36,10 @@ const Navbar = () => {
 
     return (
       <>
-        <Image
-          className="rounded-full"
-          src={session.user?.image || ''}
-          width={30}
-          height={30}
-          alt={session.user?.email || ''}
+        <Avatar
+          // todo add default image for avatar
+          imgUrl={session.user?.image || ''}
+          size={30}
         />
         <button onClick={() => signOut()}>Sign Out</button>
       </>
@@ -48,7 +47,7 @@ const Navbar = () => {
   })()
 
   return (
-    <nav className="fixed sm:left-1/2 sm:-translate-x-1/2 w-full sm:w-2/3 shadow-md z-10 h-14 flex items-center sm:rounded-lg mx-auto sm:mt-10 bg-white">
+    <nav className="fixed sm:left-1/2 sm:-translate-x-1/2 w-full sm:w-2/3 shadow-md z-20 h-14 flex items-center sm:rounded-lg mx-auto sm:mt-10 bg-white">
       {/* Desktop View */}
       <div className="hidden sm:flex w-full justify-around">
         <Link href="/" className={`nav_link ${path === '/' ? 'selected' : ''}`}>

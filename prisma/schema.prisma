@@ -14,4 +14,31 @@ model User {
   id        Int    @id @default(autoincrement())
   email     String @unique
   avatarUrl String
+
+  Feed     Feed[]
+  Comments Comments[]
+}
+
+model Feed {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
+  title       String
+  description String
+  images      String[]
+  likes       Int      @default(0)
+  dislikes    Int      @default(0)
+  created_at  DateTime @default(now())
+
+  Comments Comments[]
+}
+
+model Comments {
+  id       Int  @id @default(autoincrement())
+  feedId   Int
+  userId   Int
+  user     User @relation(fields: [userId], references: [id])
+  feed     Feed @relation(fields: [feedId], references: [id])
+  likes    Int
+  dislikes Int
 }
