@@ -1,10 +1,8 @@
 import { prisma } from "@utils/prisma"
 import { NextRequest, NextResponse } from "next/server"
 
-
 export const GET = async (req: NextRequest) => {
   try {
-
     const allFeed = await prisma.feed.findMany({
       include: {
         user: true

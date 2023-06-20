@@ -1,11 +1,10 @@
 import { prisma } from "@utils/prisma";
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-// import { connectToDatabase } from "@utils/database";
-// import User from "@models/user";
+import { cookies } from 'next/headers';
+import jwt from 'jsonwebtoken';
 
 const handler = NextAuth({
-  // console.log(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_SECRET);
 
   providers: [
     GoogleProvider({
@@ -32,30 +31,28 @@ const handler = NextAuth({
 
     async signIn({ profile }) {
       const nProfile = profile as { picture: string; email: string; }
-      console.log("PROFILEEEE", profile)
-      // return true;
       try {
 
         //check if a user exists in the database
         const userExists = await prisma.user.findFirst({ where: { email: profile?.email } })
+        let uID = userExists?.id;
         //if not, create a new user
         if (!userExists && nProfile.email && nProfile.picture) {
-          // const user = await User.create({
-          //   email: profile.email,
-          //   username: profile.name.replace(" ", "").toLowerCase(),
-          //   images: profile.picture,
-          // });
           const user = {
             email: nProfile.email,
             avatarUrl: nProfile.picture
           }
 
-          await prisma.user.upsert({
-            where: { email: user.email },
-            update: { ...user },
-            create: { ...user }
+          const data = await prisma.user.create({
+            data: user
           })
+
+          uID = data.id;
         }
+        // todo encrypt cookie first and store secret
+        const random = process.env.JWT_PRIVATE || 'nextsecret'
+        const token = jwt.sign({ ...nProfile, id: uID }, random)
+        cookies().set('token', token)
         return true;
       } catch (error) {
         console.log(error);

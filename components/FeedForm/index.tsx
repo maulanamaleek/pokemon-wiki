@@ -20,7 +20,6 @@ const FeedForm = () => {
 
   const handleFormSubmit = () => {
     // validate first
-    console.log('here')
 
     // text is required
     if (!text) {
@@ -35,10 +34,9 @@ const FeedForm = () => {
     const bodyForm = {
       description: text,
       title,
-      userId: 2,
+      // userId: 2,
       images: ['https://www.jamtangan.com/cdn-cgi/image/fit=cover,format=auto/https://assets.jamtangan.com/images/product/casio/EFV-540D-1AVUDF/1l.jpg']
     }
-    console.log({ bodyForm })
 
     fetch('/api/feed', {
       method: 'POST',
@@ -102,10 +100,6 @@ const FeedForm = () => {
         />
         <button onClick={handleFormSubmit} className="bg-green-300 px-4 py-1 rounded-full hover:bg-green-400">Submit</button>
       </div>
-
-      <button onClick={() => fetch('/api/feed/5')}>COBA FETCH</button>
-      <button onClick={() => fetch('/api/feed/like', { method: 'POST', body: JSON.stringify({ id: 5 }) })}>COBA Like</button>
-      <button onClick={() => fetch('/api/feeds')}>GET ALL FEEDS</button>
     </div>
   )
 }

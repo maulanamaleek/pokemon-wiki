@@ -16,7 +16,6 @@ const Navbar = () => {
   const { data: session } = useSession();
   const [providers, setProviders] = useState<any>(null);
   const locale = Locale.getLocale();
-  console.log('SESSION DATA', session)
 
   useEffect(() => {
     const setUpProviders = async () => {
@@ -35,32 +34,38 @@ const Navbar = () => {
     }
 
     return (
-      <>
+      <div className="flex gap-5">
         <Avatar
           // todo add default image for avatar
           imgUrl={session.user?.image || ''}
           size={30}
         />
-        <button onClick={() => signOut()}>Sign Out</button>
-      </>
+        <button
+          className="bg-red-500 rounded-full px-4 text-white font-semibold"
+          onClick={() => signOut()}
+        >
+          Sign Out
+        </button>
+      </div>
     )
   })()
 
   return (
     <nav className="fixed sm:left-1/2 sm:-translate-x-1/2 w-full sm:w-2/3 shadow-md z-20 h-14 flex items-center sm:rounded-lg mx-auto sm:mt-10 bg-white">
       {/* Desktop View */}
-      <div className="hidden sm:flex w-full justify-around">
-        <Link href="/" className={`nav_link ${path === '/' ? 'selected' : ''}`}>
-          <Image
-            src="/assets/icons/gengar.svg"
-            width={23}
-            height={23}
-            alt="Home"
+      <div className="hidden sm:flex w-full justify-between px-5">
+        <div className="flex gap-16">
+          <Link href="/" className={`nav_link ${path === '/' ? 'selected' : ''}`}>
+            <Image
+              src="/assets/icons/gengar.svg"
+              width={23}
+              height={23}
+              alt="Home"
 
-          />
-          <span>{locale.NAV_HOME}</span>
-        </Link>
-        <Link href="/pokedex" className={`nav_link ${/pokedex/.test(path) ? 'selected' : ''}`}>
+            />
+            <span>{locale.NAV_HOME}</span>
+          </Link>
+          {/* <Link href="/pokedex" className={`nav_link ${/pokedex/.test(path) ? 'selected' : ''}`}>
           <Image
             src="/assets/icons/pokeball.svg"
             width={23}
@@ -68,17 +73,18 @@ const Navbar = () => {
             alt="Pokedex"
           />
           <span>{locale.NAV_POKEDEX}</span>
-        </Link>
-        <Link href="/forum" className={`nav_link ${/forum/.test(path) ? 'selected' : ''}`}>
-          <Image
-            src="/assets/icons/hat.svg"
-            width={23}
-            height={23}
-            alt="News"
-          />
-          <span>{locale.NAV_FEED}</span>
-        </Link>
-        {/* <button onClick={() => signIn(providers['google'].id)} className="black_btn">{locale.SIGN_IN}</button> */}
+        </Link> */}
+          <Link href="/forum" className={`nav_link ${/forum/.test(path) ? 'selected' : ''}`}>
+            <Image
+              src="/assets/icons/hat.svg"
+              width={23}
+              height={23}
+              alt="News"
+            />
+            <span>{locale.NAV_FEED}</span>
+          </Link>
+          {/* <button onClick={() => signIn(providers['google'].id)} className="black_btn">{locale.SIGN_IN}</button> */}
+        </div>
         {userInfo}
       </div>
 
