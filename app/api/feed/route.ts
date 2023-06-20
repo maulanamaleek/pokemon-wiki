@@ -2,6 +2,7 @@ import { prisma } from "@utils/prisma"
 import { NextRequest, NextResponse } from "next/server"
 import jwt from 'jsonwebtoken';
 import { User } from "@prisma/client";
+import { JWT_SECRET } from "@constants/api";
 
 
 export const POST = async (req: NextRequest) => {
@@ -12,9 +13,8 @@ export const POST = async (req: NextRequest) => {
       throw new Error('No Token Provided');
     }
 
-    const key = process.env.JWT_PRIVATE || 'nextsecret';
 
-    const user = jwt.verify(token, key) as User;
+    const user = jwt.verify(token, JWT_SECRET) as User;
 
     if (!user) {
       throw new Error('No User Found')

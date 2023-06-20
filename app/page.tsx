@@ -108,12 +108,10 @@ export default function Home({
 
   const handleNext = () => {
     setPage(p => p + 1)
-    console.log('next page')
   }
 
   const handlePrev = () => {
     setPage(p => p - 1)
-    console.log('prev page')
   }
 
   const handlePageFirst = () => {
@@ -136,7 +134,6 @@ export default function Home({
     ));
   })()
 
-  console.log({ pokemonList, detail })
 
 
   return (

@@ -12,7 +12,6 @@ import Avatar from './Avatar';
 const Navbar = () => {
   // Locale.setLanguage(ELang.ID);
   const path = usePathname()
-  console.log({ path })
   const { data: session } = useSession();
   const [providers, setProviders] = useState<any>(null);
   const locale = Locale.getLocale();
@@ -20,7 +19,6 @@ const Navbar = () => {
   useEffect(() => {
     const setUpProviders = async () => {
       const response = await getProviders();
-      console.log('providers response', response)
 
       setProviders(response);
     };

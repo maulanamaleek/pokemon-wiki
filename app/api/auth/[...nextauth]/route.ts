@@ -3,6 +3,8 @@ import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { cookies } from 'next/headers';
 import jwt from 'jsonwebtoken';
+import { JWT_SECRET } from "@constants/api";
+// import { signOut } from "next-auth/react";
 
 const handler = NextAuth({
 
@@ -50,8 +52,7 @@ const handler = NextAuth({
           uID = data.id;
         }
         // todo encrypt cookie first and store secret
-        const random = process.env.JWT_PRIVATE || 'nextsecret'
-        const token = jwt.sign({ ...nProfile, id: uID }, random)
+        const token = jwt.sign({ ...nProfile, id: uID }, JWT_SECRET)
         cookies().set('token', token)
         return true;
       } catch (error) {
@@ -59,6 +60,7 @@ const handler = NextAuth({
         return false;
       }
     },
+
   },
 });
 

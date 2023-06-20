@@ -1,13 +1,19 @@
 'use client'
 import Avatar from '@components/Avatar'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
+import { ICheckUserResp } from '@types/user';
 
 const FeedForm = () => {
   const [image, setImage] = useState<File | null>(null);
+  const [user, setUser] = useState<ICheckUserResp | null>(null);
   const [text, setText] = useState('');
   const [title, setTitle] = useState('Default title');
   const fileInputRef = useRef<HTMLInputElement | null>(null)
+
+  useEffect(() => {
+    fetch('/api/user/current').then((d) => d.json()).then((res) => setUser(res.data))
+  }, [])
 
   const handleUploadFile: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     // pattern for image/jpeg, image/png, image/jpg
@@ -57,28 +63,50 @@ const FeedForm = () => {
   const renderImagePlaceholder = (() => {
     if (image) {
       const imgObjUrl = URL.createObjectURL(image);
+
       return (
-        <Image
-          className="object-cover"
-          src={imgObjUrl}
-          width={200}
-          height={100}
-          alt="feed image"
-        />
+        <div className="rounded-lg my-2 w-auto ml-12" style={{
+          height: '250px',
+          display: 'block',
+          position: 'relative'
+        }}>
+
+          <Image
+            src="/assets/icons/close.svg"
+            alt="images....."
+            width={15}
+            height={15}
+            onClick={() => setImage(null)}
+            className="z-20 bg-gray-200 shadow-lg opacity-90 cursor-pointer rounded-full absolute -right-2 -top-1.5"
+          />
+          <Image
+            src={imgObjUrl}
+            className="rounded-md"
+            alt="images....."
+            fill
+            style={{
+              objectFit: 'cover'
+            }}
+          />
+        </div>
       )
     }
   })()
 
+  if (!user) return null;
+
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 border-gray-300 border px-5 py-3 rounded-md mb-10">
       <div className='flex items-start gap-5'>
         <Avatar
           size={30}
-          imgUrl='https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/12.svg'
+          imgUrl={user?.picture || 'https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/12.svg'}
         />
-        <textarea value={text} onChange={(e) => setText(e.target.value)} className="bg-white p-2 flex-1 resize-none" rows={5} placeholder="Share your thought" />
+        <textarea value={text} onChange={(e) => setText(e.target.value)} className="bg-white p-2 flex-1 resize-none rounded-md" rows={5} placeholder="Share your thought" />
       </div>
+
       {renderImagePlaceholder}
+
       <div className="flex justify-between pl-12 items-center">
         <span
           className="cursor-pointer hover:bg-slate-200 rounded-sm h-5 flex items-center px-0.5 ease-in"

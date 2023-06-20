@@ -15,9 +15,14 @@ const Forum = async () => {
   })
 
   return (
-    <div className="z-10 mt-20">
-      <FeedForm />
-      <FeedList data={data} />
+    <div className="z-10 mt-20 sm:w-3/4 flex justify-between sm:gap-20 p-5">
+      <div className="flex-1">
+        <FeedForm />
+        <FeedList data={data} />
+      </div>
+      <div className='sm:w-1/3'>
+
+      </div>
     </div>
   )
 }

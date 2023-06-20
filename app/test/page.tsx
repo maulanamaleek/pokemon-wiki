@@ -1,6 +1,5 @@
 import { prisma } from '@utils/prisma'
 import React from 'react'
-console.log('envs', process.env)
 
 const TestPage = async () => {
   const user = await prisma.user.findFirst({

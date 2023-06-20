@@ -12,19 +12,21 @@ interface IFeedItemProps {
 const FeedItem = ({
   data
 }: IFeedItemProps) => {
-  const time = moment(data.created_at).format('ddd hh:mm A')
+  const time = moment(data.created_at).fromNow(false)
   return (
-    <div>
-      <Avatar size={25} imgUrl={data.user.avatarUrl} />
-      <h2>{data.user.email}</h2>
-      <h3>{time}</h3>
-      <p>
+    <div className="flex flex-col border-gray-300 border rounded-md py-4 px-5">
+      <div className="flex gap-2 items-center">
+        <Avatar size={25} imgUrl={data.user.avatarUrl} />
+        <h2>{data.user.email}</h2>
+        <span className="hidden sm:block text-gray-500">{time}</span>
+      </div>
+      <p className="mt-2">
         {data.description}
       </p>
 
-      <div className="rounded-lg overflow-hidden" style={{
-        width: '200px',
-        height: '100px',
+
+      <div className="rounded-lg overflow-hidden my-2 w-full" style={{
+        height: '300px',
         display: 'block',
         position: 'relative'
       }}>
@@ -38,10 +40,7 @@ const FeedItem = ({
         />
       </div>
 
-      <div>
-        <p>{data.likes}</p>
-        <p>{data.dislikes}</p>
-      </div>
+      <span className="sm:hidden mb-3 text-gray-500">{time}</span>
 
       <FeedActions data={data} />
     </div>
